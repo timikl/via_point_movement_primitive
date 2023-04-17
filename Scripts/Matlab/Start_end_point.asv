@@ -1,0 +1,16 @@
+% Define the start node
+start_x = 0;
+start_y = 15;
+scatter(start_x, start_y, 'o', 'MarkerFaceColor', 'red');
+
+
+%Define the end node
+end_x = 45;
+%end_y = linspace(0, 30, 3);
+end_y = 0;
+
+hold on
+scatter(end_x, end_y, 'o', 'MarkerFaceColor', 'blue');
+hold off
+
+interp1(end_x, end_y,  "linear")
