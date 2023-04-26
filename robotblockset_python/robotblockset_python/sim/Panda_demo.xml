@@ -1,0 +1,145 @@
+<!-- ======================================================
+	MuJoCo model
+	
+	Model   : Franka Panda arm - model
+	Author  : Leon Zlajpah
+
+	Copyright 2018 IJS 
+
+====================================================== -->
+
+<mujoco model="Panda">
+	<compiler meshdir="d:\Leon\MATLAB\toolbox\ijsrobotblockset\MjHaptix\IJS\mesh\" texturedir="d:\Leon\MATLAB\toolbox\ijsrobotblockset\MjHaptix\IJS\texture\" angle="radian" inertiafromgeom="auto" balanceinertia="true"/>
+	<option timestep="0.002" solver="Newton" integrator="Euler" o_solref="0.021 1" o_solimp="0.9 0.99 0.01">
+        <flag gravity="enable" />
+	</option>	
+	<visual>
+		<quality shadowsize="4096"/>
+		<map fogstart="6" fogend="10"/>
+		<headlight diffuse=".6 .6 .6" specular="0 0 0"/>
+	</visual>
+
+	<default>
+		<default class="Panda"> 
+			<geom material="Panda_body" group="0" contype="0" conaffinity="1" condim="4" margin="0.0001"/>
+			<joint limited="true" damping="20" armature="5" range="-2.8973 2.8973"/>
+			<site material="Panda_site" type="sphere" size="0.01" group="0"/>
+			<general biastype="affine" gainprm="64000" biasprm="0 -64000 -8000" ctrllimited="true" ctrlrange="-3 3"/>
+		</default>
+
+		<site />
+		<tendon />
+		<motor />
+		<position />
+	</default>
+	<asset>
+		<material name="Panda_body" specular=".3" shininess=".6" rgba="0.99 0.99 0.85 1"/>
+		<material name="Panda_site"  rgba=".3 .9 .3 .3"/>
+	
+		<mesh file="Panda/hand.stl"   scale="1.0 1.0 1.0" />
+		<mesh file="Panda/finger.stl" scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link0.stl"  scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link1.stl"  scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link2.stl"  scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link3.stl"  scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link4.stl"  scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link5.stl"  scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link6.stl"  scale="1.0 1.0 1.0" />
+		<mesh file="Panda/link7.stl"  scale="1.0 1.0 1.0" />
+
+		<texture builtin="gradient" height="100" rgb1="1 1 1" rgb2="1 1 1" type="skybox" width="100"/>
+		<texture name="marble2d" type="2d" file="marble.png"/>
+		<material name="table2d" texture="marble2d" reflectance="0.3" rgba=".8 .8 .8 1"/>
+	</asset>
+
+	<worldbody>
+		<light directional="false" cutoff="135" exponent="10" diffuse=".7 .7 .7" pos="0.4 -0.2 5.5" dir="-0.4 0.2 -5.5" specular=".3 .3 .3"/>
+		<geom name="ground" size="4 4 4" pos="0 0 -0.001" type="plane" contype="1" material="table2d" />
+		<site group="2" type="cylinder" pos="0.5 0 0" quat="0.70711 0 0.70711 0" size="0.005 0.5" rgba="1 0 0 1"/>
+		<site group="2" type="cylinder" pos="0 0.5 0" quat="0.70711 0.70711 0 0" size="0.005 0.5" rgba="0 1 0 1"/>
+		<site group="2" type="cylinder" pos="0 0 0.5" quat="1 0 0 0" size="0.005 0.5" rgba="0 0 1 1"/>
+
+		<body name="Target" mocap="true" pos="0 1 0" axisangle="1 0 0 0">
+			<site group="2" type="cylinder" pos="0.05 0 0  " quat="0.70711 0 0.70711 0" size="0.01 0.05" rgba="1 0 0 1"/>
+			<site group="2" type="cylinder" pos="0 0.05 0  " quat="0.70711 0.70711 0 0" size="0.01 0.05" rgba="0 1 0 1"/>
+			<site group="2" type="cylinder" pos="0 0   0.05" quat="1 0 0 0"             size="0.01 0.05" rgba="0 0 1 1"/>
+			<site group="1" name="Target" type="box" pos="0 0 0" size="0.02 0.02 0.02" rgba="1 1 1 0.5"/>
+		</body>
+
+		<!-- ================= Panda ARM ================= /-->
+		<body name="Panda" mocap="true" pos="0 0 0" quat="1 0 0 0" childclass="Panda">
+			<geom type="mesh" pos="0 0 0" mesh="link0" />
+	
+			<body name="Panda/link1" pos="0 0 0.333" axisangle="0 0 1 0" >
+				<joint name="Panda/joint1" type="hinge" pos="0 0 0" axis="0 0 1" range="-2.8973 2.8973"/>
+				<geom type="mesh" pos="0 0 0" mesh="link1" />
+			
+				<body name="Panda/link2" pos="0 0 0" axisangle="1 0 0 -1.5708">
+					<joint name="Panda/joint2" type="hinge" pos="0 0 0" axis="0 0 1" range="-1.7628 1.7628"/>
+					<geom type="mesh" pos="0 0 0" mesh="link2" />
+	
+					<body name="Panda/link3" pos="0 -0.316 0" axisangle="1 0 0 1.5708" >
+						<joint name="Panda/joint3" type="hinge" pos="0 0 0" axis="0 0 1" range="-2.8973 2.8973"/>
+						<geom type="mesh" pos="0 0 0" mesh="link3"/>
+	
+						<body name="Panda/link4" pos="0.0825 0 0" axisangle="1 0 0 1.5708">
+							<joint name="Panda/joint4" type="hinge" pos="0 0 0" axis="0 0 1" range="-3.0718 -0.0698"/>
+							<geom type="mesh" pos="0 0 0" mesh="link4"/>
+	
+							<body name="Panda/link5" pos="-0.0825 0.384 0" axisangle="1 0 0 -1.5708">
+								<joint name="Panda/joint5" type="hinge" pos="0 0 0" axis="0 0 1" range="-2.9671    2.9671"/>
+								<geom type="mesh" pos="0 0 0" mesh="link5"/>
+	
+								<body name="Panda/link6" pos="0 0 0" axisangle="1 0 0 1.5708">
+									<joint name="Panda/joint6" type="hinge" pos="0 0 0" axis="0 0 1" range="-0.0175 3.7525"/>
+									<geom type="mesh" pos="0 0 0" mesh="link6"/>
+	
+									<body name="Panda/link7" pos="0.088 0 0" axisangle="1 0 0 1.5708">
+										<joint name="Panda/joint7" type="hinge" pos="0 0 0" axis="0 0 1" range="-2.8973 2.8973"/>
+										<geom type="mesh" pos="0 0 0" mesh="link7" />
+										<body name="Panda/flange" pos="0 0 0.107" axisangle="1 0 0 0">
+											<site group="3" type="cylinder" pos="0.125 0 0" quat="0.70711 0 0.70711 0" size="0.005 0.125" rgba="1 0 0 1"/>
+											<site group="3" type="cylinder" pos="0 0.125 0" quat="0.70711 0.70711 0 0" size="0.005 0.125" rgba="0 1 0 1"/>
+											<site group="3" type="cylinder" pos="0 0 0.125" quat="1 0 0 0" size="0.005 0.125" rgba="0 0 1 1"/>
+											<site name="Panda/EE" pos="0 0 0" />
+											<body name="Panda/hand" pos="0 0 0.1034" axisangle="0 0 1 -0.7854">
+												<geom type="mesh" pos="0 0 -0.1034" mesh="hand" />
+												<geom type="mesh" pos="0  0.02 -0.04" mesh="finger"/>
+												<geom type="mesh" pos="0 -0.02 -0.04" axisangle="0 0 1 3.14159" mesh="finger"/>
+												<site group="4" type="cylinder" pos="0.0625 0 0" quat="0.70711 0 0.70711 0" size="0.005 0.0625" rgba="1 0 0 1"/>
+												<site group="4" type="cylinder" pos="0 0.0625 0" quat="0.70711 0.70711 0 0" size="0.005 0.0625" rgba="0 1 0 1"/>
+												<site group="4" type="cylinder" pos="0 0 0.0625" quat="1 0 0 0" size="0.005 0.0625" rgba="0 0 1 1"/>
+												<site group="4" name="Panda/hand" pos="0 0 0" />
+											</body>
+										</body>
+									</body>
+								</body>
+							</body>
+						</body>
+					</body>
+				</body>
+			</body>
+		</body>
+
+	</worldbody>
+	
+	<actuator>
+		<general class="Panda" name="Panda/pos_joint1" joint="Panda/joint1" />
+		<general class="Panda" name="Panda/pos_joint2" joint="Panda/joint2" />
+		<general class="Panda" name="Panda/pos_joint3" joint="Panda/joint3" />
+		<general class="Panda" name="Panda/pos_joint4" joint="Panda/joint4" />
+		<general class="Panda" name="Panda/pos_joint5" joint="Panda/joint5" />
+		<general class="Panda" name="Panda/pos_joint6" joint="Panda/joint6" />
+		<general class="Panda" name="Panda/pos_joint7" joint="Panda/joint7" />
+	</actuator>
+
+	<sensor>
+		<framepos name="Panda/pos" objtype="site" objname="Panda/hand" />
+		<framequat name="Panda/ori" objtype="site" objname="Panda/hand" />
+		<framelinvel name="Panda/v" objtype="site" objname="Panda/hand" />
+		<frameangvel name="Panda/w" objtype="site" objname="Panda/hand" />
+		<force name="Panda/force" site="Panda/hand" noise="0.5" />
+		<torque name="Panda/torque" site="Panda/hand" noise="0.5" />
+	</sensor>
+</mujoco>
+

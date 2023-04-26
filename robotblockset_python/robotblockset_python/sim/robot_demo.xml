@@ -1,0 +1,71 @@
+<!-- ======================================================
+  MuJoCo model
+  
+  Model   : robot_demo
+  Author  : Leon Zlajpah
+
+  Copyright 2020 IJS 
+
+====================================================== -->
+
+<mujoco model="robot_demo">
+    <compiler angle="radian" />
+    <size njmax="500" nconmax="100" />
+    <option gravity="0 0 -9.810" />
+
+    <visual>
+        <headlight diffuse="0.7 0.7 0.7" />
+    </visual>
+    <default class="main">
+        <joint limited="false" solimplimit="0.95 0.95 0.1" range="-100 100" damping="1000" />
+        <geom contype="1" conaffinity="0" size="0.01 0 0" rgba="0.5 0.5 0.5 1" />
+        <site size="0.005 0 0" rgba="0 0.5 0 0.5" />
+        <general biastype="affine" gainprm="2000 0 0" biasprm="0 -2000 0" ctrllimited="true" ctrlrange="-3 3" />
+    </default>
+  <asset>
+    <texture builtin="gradient" height="100" rgb1="1 1 1" rgb2="1 1 1" type="skybox" width="100"/>
+  </asset>
+
+  <worldbody>
+    <site group="2" type="cylinder" pos="0.5 0 0" quat="0.70711 0 0.70711 0" size="0.01 0.5" rgba="1 0 0 1"/>
+    <site group="2" type="cylinder" pos="0 0.5 0" quat="0.70711 0.70711 0 0" size="0.01 0.5" rgba="0 1 0 1"/>
+    <site group="2" type="cylinder" pos="0 0 0.5" quat="1 0 0 0" size="0.01 0.5" rgba="0 0 1 1"/>
+
+    <body name="Robot" mocap="true" pos="0 0 0" quat="1 0 0 0">
+      <geom type="cylinder" fromto="-0.2 0 0 0.2 0 0" size="0.1"/>
+      <body name="Link1" pos="0 0 0" >
+        <joint name="joint1" type="hinge" pos="0 0 0" axis="1 0 0" range="-180 180"/>
+        <geom type="cylinder" fromto="0 0 0 0 1 0" size="0.04"/>
+        <site name="base" type="sphere"  pos="0 0 0" size="0.045"/>
+        
+        <body name="Link2" pos="0 1 0" >
+          <joint name="joint2" type="hinge" pos="0 0 0" axis="1 0 0" range="-180 180"/>
+          <geom type="cylinder" fromto="0 0 0 0 1 0" size="0.04"/>
+          <site name="mid" type="sphere"  pos="0 0 0" size="0.045"/>
+     
+          <body name="Link3" pos="0 1 0" >
+            <joint name="joint3" type="hinge" pos="0 0 0" axis="1 0 0" range="-180 180"/>
+            <geom type="cylinder" fromto="0 0 0 0 1 0" size="0.04" />
+            <site name="end" type="sphere"  pos="0 0 0" size="0.045"/>
+            <body name="tool" pos="0 1 0" >
+              <geom type="sphere" pos="0 0 0" size="0.05"  rgba="1 1 0 1"/>
+              <site name="Tool" type="sphere"  pos="0 0 0" size="0.04"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general name="p1" joint="joint1" />
+    <general name="p2" joint="joint2" />
+    <general name="p3" joint="joint3" />
+  </actuator>
+  
+  <sensor>
+    <force name="Force" site="Tool" noise="0"/>
+  </sensor>
+  
+</mujoco>
+
