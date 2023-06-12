@@ -1,0 +1,14 @@
+x0 = [0, 0];
+dx0 = [0, 0]; 
+ddx0 = [0, 0];
+x1 = [10, 10];
+dx1 = [0, 0];
+ddx1 = [0, 0];
+t = linspace(3, 6, 100);
+
+a = polynomial1(x0,dx0,ddx0,x1,dx1,ddx1,t);
+
+dt = (6 - 3)/100; 
+[y,dy,ddy] = polynomial2(a, dt, 6);
+
+plot(y)
