@@ -1,54 +1,62 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
 class polynomial:
 
-    #https://www.w3schools.com/python/python_classes.asp
+     # https://www.w3schools.com/python/python_classes.asp
 
-    def __init__(self,x0,dx0,ddx0,x1,dx1,ddx1,t,dt):
-
-        a0 = np.asarray(x0)
-        a1 = np.asarray(dx0)
-        a2 = np.asarray(np.divide(ddx0 , 2))
-        x0 = np.asarray(x0)
-        dx0 = np.asarray(dx0)
-        ddx0 = np.asarray(ddx0)
-        x1 = np.asarray(x1)
-        dx1 = np.asarray(dx1)
-        ddx1 = np.asarray(ddx1)
-        self.dt = dt
-        self.t = t
-
-        a3 =  (20 * x1 - 20 * x0 - (8 * dx1 + 12 * dx0) * t - (3 * ddx0 - ddx1) * t**2) / (2 * t**3)
-        a4 =  (30 * x0 - 30 * x1 + (14 * dx1 + 16 * dx0) * t + (3 * ddx0 - 2 * ddx1) * t**2 ) / (2 * t**4)
-        a5 =  (12 * x1 - 12 * x0 - (6 * dx1 + 6 * dx0) * t - (ddx0 - ddx1) * t**2 ) /  (2 * t**5)
-
-        self.a = [a5, a4, a3, a2, a1, a0]
-
-        
-        
-
-    def trajectory_at_time(self, t):
-        
-        a5 = np.asarray(self.a[0])
-        a4 = np.asarray(self.a[1])
-        a3 = np.asarray(self.a[2])
-        a2 = np.asarray(self.a[3])
-        a1 = np.asarray(self.a[4])
-        a0 = np.asarray(self.a[5])
+     def __init__(self, x0, dx0, ddx0, x1, dx1, ddx1, t, dt):
+         a0 = np.asarray(x0)
+         a1 = np.asarray(dx0)
+         a2 = np.asarray(np.divide(ddx0, 2))
+         x0 = np.asarray(x0)
+         dx0 = np.asarray(dx0)
+         ddx0 = np.asarray(ddx0)
+         x1 = np.asarray(x1)
+         dx1 = np.asarray(dx1)
+         ddx1 = np.asarray(ddx1)
+         self.dt = dt
+         self.t = t
+         self.trajectory = []
 
 
-        y = a5 * t**5 + a4 * t**4 + a3 * t**3 + a2 * t**2 + a1 * t + a0
 
-        return y
-    
-    def whole_trajectory(self):
-        time_split = np.linspace(0, self.t, int(self.t/self.dt))
+         a3 = (20 * x1 - 20 * x0 - (8 * dx1 + 12 * dx0) * t - (3 * ddx0 -ddx1) * t ** 2) / (2 * t ** 3)
+         a4 = (30 * x0 - 30 * x1 + (14 * dx1 + 16 * dx0) * t + (3 * ddx0- 2 * ddx1) * t ** 2) / (2 * t ** 4)
+         a5 = (12 * x1 - 12 * x0 - (6 * dx1 + 6 * dx0) * t - (ddx0 -ddx1) * t ** 2) / (2 * t ** 5)
 
-        trajectroy = [0*(len(time_split)+1)]
-        j = 0
-        for i in time_split:
-            trajectroy[j] = self.trajectory_at_time(i)
-            j += 1
 
-    
+         self.a = [a5, a4, a3, a2, a1, a0]
+         self.whole_trajectory_calculate()
+
+     def trajectory_at_time(self, t):
+         a5 = np.asarray(self.a[0])
+         a4 = np.asarray(self.a[1])
+         a3 = np.asarray(self.a[2])
+         a2 = np.asarray(self.a[3])
+         a1 = np.asarray(self.a[4])
+         a0 = np.asarray(self.a[5])
+
+         y = a5 * t ** 5 + a4 * t ** 4 + a3 * t ** 3 + a2 * t ** 2 + a1 * t + a0
+
+         return y
+
+     def whole_trajectory_calculate(self):
+         time_split = np.linspace(0, self.t, int(self.t / self.dt))
+
+         self.trajectory = [0] * len(time_split)
+         j = 0
+         for i in time_split:
+             self.trajectory[j] = self.trajectory_at_time(i)
+             j += 1
+
+         return 0
+
+if __name__ == "__main__":
+     test_trajectory = polynomial([0, 7], [0, 5], [0, -5], [10, 3.14], [0, 0], [0, 0], 10, 0.1)
+     for i in test_trajectory.trajectory:
+         plt.scatter(i[0],i[1])
+     plt.show()
 
     
 """
