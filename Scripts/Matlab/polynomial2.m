@@ -5,6 +5,7 @@ y = zeros(2, int32(t/dt + 1)); % must be divisible
 dy = zeros(2, int32(t/dt + 1)); % must be divisible
 ddy = zeros(2, int32(t/dt + 1)); % must be divisible
 % t must be the same as in polynomial1()
+
 for i = 1:length(y)
   i_t = (i-1)*dt;
   y(i,1) = cell2mat(a543210(1)) .* i_t.^5 + cell2mat(a543210(2)) .* i_t.^4 + cell2mat(a543210(3)) .* i_t.^3 + ...
