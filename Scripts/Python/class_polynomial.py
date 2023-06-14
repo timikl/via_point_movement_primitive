@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from colorama import Fore
 
 class polynomial:
 
@@ -69,13 +70,18 @@ class polynomial:
      def acceleration_calculate(self):
          time_split = np.linspace(0, self.t, int(self.t / self.dt))
          self.acceleration = []
-
-         j = 1
-         for i in time_split:
-            if j > 1:
+         print(len(self.velocity))
+         self.velocity.append([0, 0])  
+               
+         j = 0
+         for index, i in enumerate(time_split):
+            if j > 0:
+                print(f"{Fore.BLUE}||{index}||{Fore.GREEN}Vel j : {self.velocity[j]} |{Fore.RED} Vel j-1: {self.velocity[j-1]}")
                 self.acceleration.append((self.velocity[j]- self.velocity[j-1]) / self.dt)
             j += 1
          return 0 
+
+
 
 if __name__ == "__main__":
     
