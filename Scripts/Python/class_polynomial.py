@@ -28,6 +28,8 @@ class polynomial:
 
          self.a = [a5, a4, a3, a2, a1, a0]
          self.whole_trajectory_calculate()
+         self.velocity_calculate()
+         self.acceleration_calculate()
 
      def trajectory_at_time(self, t):
          a5 = np.asarray(self.a[0])
@@ -42,21 +44,65 @@ class polynomial:
          return y
 
      def whole_trajectory_calculate(self):
-         time_split = np.linspace(0, self.t, int(self.t / self.dt))
+        time_split = np.linspace(0, self.t, int(self.t / self.dt))
+        self.trajectory = [0] * len(time_split)
 
-         self.trajectory = [0] * len(time_split)
-         j = 0
-         for i in time_split:
+        j = 0
+        for i in time_split:
              self.trajectory[j] = self.trajectory_at_time(i)
              j += 1
 
-         return 0
+        return 0
+     
+     def velocity_calculate(self):
+        time_split = np.linspace(0, self.t, int(self.t / self.dt))
+        self.velocity = []  # Initialize as an empty list
+
+        j = 0
+        for i in time_split:
+            if j > 0:
+                self.velocity.append((self.trajectory[j] - self.trajectory[j-1]) / self.dt)
+            j += 1
+        
+        return 0
+     
+     def acceleration_calculate(self):
+         time_split = np.linspace(0, self.t, int(self.t / self.dt))
+         self.acceleration = []
+
+         j = 1
+         for i in time_split:
+            if j > 1:
+                self.acceleration.append((self.velocity[j]- self.velocity[j-1]) / self.dt)
+            j += 1
+         return 0 
 
 if __name__ == "__main__":
-     test_trajectory = polynomial([0, 7], [0, 5], [0, -5], [10, 3.14], [0, 0], [0, 0], 10, 0.1)
-     for i in test_trajectory.trajectory:
-         plt.scatter(i[0],i[1])
-     plt.show()
+    
+    test_trajectory = polynomial([0, 7], [0, 0], [0, 0], [10, 3.14], [0, 0], [0, 0], 10, 0.1)
+
+    # Create two subplots
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
+
+    ax1.set_ylabel('Position')
+    ax2.set_ylabel('Velocity')
+    ax2.set_xlabel('Time')
+    ax3.set_ylabel('Acceleration')
+    ax3.set_xlabel('Time')
+    
+
+    for i in test_trajectory.trajectory:
+        ax1.scatter(i[0],i[1])
+
+
+    for j in test_trajectory.velocity:
+        ax2.scatter(j[0], j[1])
+
+
+    for z in test_trajectory.acceleration:
+        ax3.scatter(z[0], z[1])
+
+    plt.show()
 
     
 """
