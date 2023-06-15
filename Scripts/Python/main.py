@@ -45,4 +45,6 @@ if __name__ == "__main__":
     ax3.scatter(test_trajectory.time_split[:-1], aux_acc)
 
 
+
+
     plt.show()
