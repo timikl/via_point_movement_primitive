@@ -7,30 +7,31 @@ class polynomial:
      # https://www.w3schools.com/python/python_classes.asp
 
      def __init__(self, x0, dx0, ddx0, x1, dx1, ddx1, t, dt):
-         a0 = np.asarray(x0)
-         a1 = np.asarray(dx0)
-         a2 = np.asarray(np.divide(ddx0, 2))
-         x0 = np.asarray(x0)
-         dx0 = np.asarray(dx0)
-         ddx0 = np.asarray(ddx0)
-         x1 = np.asarray(x1)
-         dx1 = np.asarray(dx1)
-         ddx1 = np.asarray(ddx1)
-         self.dt = dt
-         self.t = t
-         self.trajectory = []
+         
+        x0 = np.asarray(x0)
+        dx0 = np.asarray(dx0)
+        ddx0 = np.asarray(ddx0)
+        x1 = np.asarray(x1)
+        dx1 = np.asarray(dx1)
+        ddx1 = np.asarray(ddx1)
+        self.dt = dt
+        self.t = t
+        print(t)
+        self.trajectory = []
 
 
+        a0 = np.asarray(x0)
+        a1 = np.asarray(dx0)
+        a2 = np.asarray(np.divide(ddx0, 2))
+        a3 = (20 * x1 - 20 * x0 - (8 * dx1 + 12 * dx0) * t - (3 * ddx0 -ddx1) * t ** 2) / (2 * t ** 3)
+        a4 = (30 * x0 - 30 * x1 + (14 * dx1 + 16 * dx0) * t + (3 * ddx0- 2 * ddx1) * t ** 2) / (2 * t ** 4)
+        a5 = (12 * x1 - 12 * x0 - (6 * dx1 + 6 * dx0) * t - (ddx0 -ddx1) * t ** 2) / (2 * t ** 5)
 
-         a3 = (20 * x1 - 20 * x0 - (8 * dx1 + 12 * dx0) * t - (3 * ddx0 -ddx1) * t ** 2) / (2 * t ** 3)
-         a4 = (30 * x0 - 30 * x1 + (14 * dx1 + 16 * dx0) * t + (3 * ddx0- 2 * ddx1) * t ** 2) / (2 * t ** 4)
-         a5 = (12 * x1 - 12 * x0 - (6 * dx1 + 6 * dx0) * t - (ddx0 -ddx1) * t ** 2) / (2 * t ** 5)
 
-
-         self.a = [a5, a4, a3, a2, a1, a0]
-         self.whole_trajectory_calculate()
-         self.velocity_calculate()
-         self.acceleration_calculate()
+        self.a = [a5, a4, a3, a2, a1, a0]
+        self.whole_trajectory_calculate()
+        self.velocity_calculate()
+        self.acceleration_calculate()
 
      def trajectory_at_time(self, t):
          a5 = np.asarray(self.a[0])
