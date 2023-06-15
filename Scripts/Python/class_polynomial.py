@@ -19,6 +19,7 @@ class polynomial:
          self.dt = dt
          self.t = t
          self.trajectory = []
+         self.time_split = None
 
 
 
@@ -56,11 +57,11 @@ class polynomial:
         return 0
      
      def velocity_calculate(self):
-        time_split = np.linspace(0, self.t, int(self.t / self.dt))
+        self.time_split = np.linspace(0, self.t, int(self.t / self.dt))
         self.velocity = []  # Initialize as an empty list
 
         j = 0
-        for i in time_split:
+        for i in self.time_split:
             if j > 0:
                 self.velocity.append((self.trajectory[j] - self.trajectory[j-1]) / self.dt)
             j += 1
@@ -72,7 +73,7 @@ class polynomial:
          self.acceleration = []
          print(len(self.velocity))
          self.velocity.append([0, 0])  
-               
+
          j = 0
          for index, i in enumerate(time_split):
             if j > 0:
@@ -89,6 +90,9 @@ if __name__ == "__main__":
 
     # Create two subplots
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
+    time = np.linspace(0, test_trajectory.t, int(test_trajectory.t / test_trajectory.dt))
+
+    print((time))
 
     ax1.set_ylabel('Position')
     ax2.set_ylabel('Velocity')
@@ -96,17 +100,30 @@ if __name__ == "__main__":
     ax3.set_ylabel('Acceleration')
     ax3.set_xlabel('Time')
     
-
+    #print(f"{Fore.LIGHTCYAN_EX}i: {test_trajectory.trajectory} | type: {type(test_trajectory.trajectory)} | len: {len(test_trajectory.trajectory)}")
+    #print(f"{Fore.LIGHTMAGENTA_EX}t: {test_trajectory.time_split} | type: {type(test_trajectory.time_split)} | len: {len(test_trajectory.time_split)}")
+    
+    aux_traj = []
     for i in test_trajectory.trajectory:
-        ax1.scatter(i[0],i[1])
+        #ax1.scatter(test_trajectory.time_split,i[1])
+        aux_traj.append(i[0])
 
+    ax1.scatter(test_trajectory.time_split, aux_traj)
 
+    aux_vel = []
     for j in test_trajectory.velocity:
-        ax2.scatter(j[0], j[1])
+        #ax2.scatter(j[0], j[1])
+        aux_vel.append(j[0])
 
+    ax2.scatter(test_trajectory.time_split[:], aux_vel)
 
+    aux_acc = []
     for z in test_trajectory.acceleration:
-        ax3.scatter(z[0], z[1])
+        #ax3.scatter(z[0], z[1])
+        aux_acc.append(z[0])
+
+    ax3.scatter(test_trajectory.time_split[:-1], aux_acc)
+
 
     plt.show()
 
