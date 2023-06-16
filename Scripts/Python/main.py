@@ -1,3 +1,4 @@
+import enum
 from class_polynomial import polynomial
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,46 +6,70 @@ from colorama import Fore
 
 
 if __name__ == "__main__":
-    
-    test_trajectory = polynomial([0, 7], [0, 0], [0, 0], [10, 3.14], [0, 0], [0, 0], 10, 0.1)
+
+    test_trajectory = polynomial([0, 0], [0, 0], [0, 0], [10, 10], [0, 0], [0, 0], 0.5, 0.01)
 
     # Create two subplots
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
+    fig, (traj_plot, vel_plot, acc_plot, jerk_plot) = plt.subplots(4, 1)
     time = np.linspace(0, test_trajectory.t, int(test_trajectory.t / test_trajectory.dt))
 
-    print((time))
+    test_trajectory.whole_trajectory_calculate()
+    test_trajectory.velocity_calculate()
+    test_trajectory.acceleration_calculate()
+    test_trajectory.jerk_calculate()
 
-    ax1.set_ylabel('Position')
-    ax2.set_ylabel('Velocity')
-    ax2.set_xlabel('Time')
-    ax3.set_ylabel('Acceleration')
-    ax3.set_xlabel('Time')
-    
+    for index, i in enumerate(time):
+        
+        #prints velocity and acceleration
+        print(f"{Fore.BLUE}||{index}|| {Fore.LIGHTBLACK_EX} Pose: {test_trajectory.trajectory[index]}|{Fore.GREEN}Vel : {test_trajectory.velocity[index]} m/s | {Fore.RED} Acc: {test_trajectory.acceleration[index]} | {Fore.CYAN} Jerk: {test_trajectory.jerk[index]}")
+        
+
+    traj_plot.set_ylabel('Position')
+    vel_plot.set_ylabel('Velocity')
+    vel_plot.set_xlabel('Time')
+    acc_plot.set_ylabel('Acceleration')
+    acc_plot.set_xlabel('Time')
+    jerk_plot.set_ylabel('Jerk')
+    jerk_plot.set_xlabel('Time')
+
     #print(f"{Fore.LIGHTCYAN_EX}i: {test_trajectory.trajectory} | type: {type(test_trajectory.trajectory)} | len: {len(test_trajectory.trajectory)}")
     #print(f"{Fore.LIGHTMAGENTA_EX}t: {test_trajectory.time_split} | type: {type(test_trajectory.time_split)} | len: {len(test_trajectory.time_split)}")
-    
+
+    #Trajectory plot
     aux_traj = []
     for i in test_trajectory.trajectory:
-        #ax1.scatter(test_trajectory.time_split,i[1])
+        #traj_plot.scatter(test_trajectory.time_split,i[1])
         aux_traj.append(i[0])
 
-    ax1.scatter(test_trajectory.time_split, aux_traj)
+    traj_plot.scatter(test_trajectory.time_split, aux_traj)
 
+    #Velocity plot
     aux_vel = []
     for j in test_trajectory.velocity:
-        #ax2.scatter(j[0], j[1])
+        #vel_plot.scatter(j[0], j[1])
         aux_vel.append(j[0])
 
-    ax2.scatter(test_trajectory.time_split[:], aux_vel)
+    vel_plot.scatter(test_trajectory.time_split[:], aux_vel)
 
+    #Acceleration plot
     aux_acc = []
     for z in test_trajectory.acceleration:
-        #ax3.scatter(z[0], z[1])
+        #acc_plot.scatter(z[0], z[1])
         aux_acc.append(z[0])
+    
+    acc_plot.scatter(test_trajectory.time_split, aux_acc)
 
-    ax3.scatter(test_trajectory.time_split[:-1], aux_acc)
+    #Jerk plot
+    aux_jerk = []
+    
+    for k in test_trajectory.jerk:
+        #acc_plot.scatter(z[0], z[1])
 
+        aux_jerk.append(k[0])
 
+    #print((len(aux_jerk), len(test_trajectory.time_split)))
 
-
+    jerk_plot.scatter(test_trajectory.time_split, aux_jerk)
+    
     plt.show()
+
