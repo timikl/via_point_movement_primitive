@@ -39,7 +39,8 @@ class polynomial:
          a0 = np.asarray(self.a[5])
 
          y = a5 * t ** 5 + a4 * t ** 4 + a3 * t ** 3 + a2 * t ** 2 + a1 * t + a0
-
+         #dy = a1 + 2 * a2 * t + 3 * a3 * t ** 2 + 4 * a4 * t ** 3 + 5 * a5 * t ** 4
+         #ddy = 2 * a2 + 6 * a3 * t + 12 * a4 * t ** 2 + 20 * a5 * t **3 
          return y
 
      def whole_trajectory_calculate(self):
