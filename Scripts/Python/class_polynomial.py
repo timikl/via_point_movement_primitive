@@ -7,33 +7,6 @@ class polynomial:
      # https://www.w3schools.com/python/python_classes.asp
 
      def __init__(self, x0, dx0, ddx0, x1, dx1, ddx1, t, dt):
-<<<<<<< HEAD
-         
-        x0 = np.asarray(x0)
-        dx0 = np.asarray(dx0)
-        ddx0 = np.asarray(ddx0)
-        x1 = np.asarray(x1)
-        dx1 = np.asarray(dx1)
-        ddx1 = np.asarray(ddx1)
-        self.dt = dt
-        self.t = t
-        print(t)
-        self.trajectory = []
-
-
-        a0 = np.asarray(x0)
-        a1 = np.asarray(dx0)
-        a2 = np.asarray(np.divide(ddx0, 2))
-        a3 = (20 * x1 - 20 * x0 - (8 * dx1 + 12 * dx0) * t - (3 * ddx0 -ddx1) * t ** 2) / (2 * t ** 3)
-        a4 = (30 * x0 - 30 * x1 + (14 * dx1 + 16 * dx0) * t + (3 * ddx0- 2 * ddx1) * t ** 2) / (2 * t ** 4)
-        a5 = (12 * x1 - 12 * x0 - (6 * dx1 + 6 * dx0) * t - (ddx0 -ddx1) * t ** 2) / (2 * t ** 5)
-
-
-        self.a = [a5, a4, a3, a2, a1, a0]
-        self.whole_trajectory_calculate()
-        self.velocity_calculate()
-        self.acceleration_calculate()
-=======
 
          x0 = np.asarray(x0)
          dx0 = np.asarray(dx0)
@@ -56,11 +29,7 @@ class polynomial:
 
 
          self.a = [a5, a4, a3, a2, a1, a0]
-         self.whole_trajectory_calculate()
-         self.velocity_calculate()
-         self.acceleration_calculate()
-         self.jerk_calculate()
->>>>>>> 242efd7245781757489dc7bbf3326f39dedc3459
+
 
      def trajectory_at_time(self, t):
          a5 = np.asarray(self.a[0])
@@ -86,98 +55,40 @@ class polynomial:
         return 0
      
      def velocity_calculate(self):
-        self.velocity = []  # Initialize as an empty list
+        self.velocity = [np.array([np.nan, np.nan])]  # Initialize as an empty list
 
         j = 0
         for i in self.time_split:
             if j > 0:
                 self.velocity.append((self.trajectory[j] - self.trajectory[j-1]) / self.dt)
             j += 1
-        
+ 
         return 0
      
      def acceleration_calculate(self):
-         self.acceleration = []
-         self.velocity.append([0, 0])  
-
+         self.acceleration = [np.array([np.nan, np.nan])]
+        
          j = 0
-         for index, i in enumerate(self.time_split):
+         for i in enumerate(self.time_split):
             if j > 0:
                 self.acceleration.append((self.velocity[j]- self.velocity[j-1]) / self.dt)
-                #prints velocity and acceleration
-                print(f"{Fore.BLUE}||{index}||{Fore.GREEN}Vel : {self.velocity[j]} |{Fore.RED} Acc: {self.acceleration[j-2]}")
+                
             j += 1
+
          return 0 
      
      def jerk_calculate(self):
-        self.jerk = []
-        self.velocity.append([0, 0]) 
-        self.acceleration.append([0, 0]) 
+        self.jerk = [np.array([np.nan, np.nan])]
         
         j = 0
         for i in enumerate(self.time_split):
             if j > 0:
                 self.jerk.append((self.acceleration[j]- self.acceleration[j-1]) / self.dt)
-        j += 1
+                #print(f"{Fore.LIGHTGREEN_EX}Jerk: {self.jerk}")
+            j += 1
 
-        self.velocity.pop()
         return 0
 
-
-if __name__ == "__main__":
-
-    test_trajectory = polynomial([0, 7], [0, 0], [0, 0], [10, 3.14], [0, 0], [0, 0], 10, 0.1)
-
-    # Create two subplots
-    fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1)
-    time = np.linspace(0, test_trajectory.t, int(test_trajectory.t / test_trajectory.dt))
-
-    ax1.set_ylabel('Position')
-    ax2.set_ylabel('Velocity')
-    ax2.set_xlabel('Time')
-    ax3.set_ylabel('Acceleration')
-    ax3.set_xlabel('Time')
-    ax4.set_ylabel('Jerk')
-    ax4.set_xlabel('Time')
-
-    #print(f"{Fore.LIGHTCYAN_EX}i: {test_trajectory.trajectory} | type: {type(test_trajectory.trajectory)} | len: {len(test_trajectory.trajectory)}")
-    #print(f"{Fore.LIGHTMAGENTA_EX}t: {test_trajectory.time_split} | type: {type(test_trajectory.time_split)} | len: {len(test_trajectory.time_split)}")
-
-    #Trajectory plot
-    aux_traj = []
-    for i in test_trajectory.trajectory:
-        #ax1.scatter(test_trajectory.time_split,i[1])
-        aux_traj.append(i[0])
-
-    ax1.scatter(test_trajectory.time_split, aux_traj)
-
-    #Velocity plot
-    aux_vel = []
-    for j in test_trajectory.velocity:
-        #ax2.scatter(j[0], j[1])
-        aux_vel.append(j[0])
-
-    ax2.scatter(test_trajectory.time_split[:], aux_vel)
-
-    #Acceleration plot
-    aux_acc = []
-    for z in test_trajectory.acceleration:
-        #ax3.scatter(z[0], z[1])
-        aux_acc.append(z[0])
-    
-    ax3.scatter(test_trajectory.time_split, aux_acc)
-
-    #Jerk plot
-    aux_jerk = []
-    for k in test_trajectory.jerk:
-        #ax3.scatter(z[0], z[1])
-        aux_jerk.append(k[0])
-
-    print((len(aux_jerk), len(test_trajectory.time_split)))
-
-    ax4.scatter(test_trajectory.time_split, aux_jerk)
-    
-    plt.show()
 
 
 """
