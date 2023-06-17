@@ -1,5 +1,5 @@
-import enum
-from class_polynomial import polynomial
+
+from class_polynomial import Polynomial
 import numpy as np
 import matplotlib.pyplot as plt
 from colorama import Fore
@@ -7,7 +7,7 @@ from colorama import Fore
 
 if __name__ == "__main__":
 
-    test_trajectory = polynomial([0, 0], [0, 0], [0, 0], [10, 10], [0, 0], [0, 0], 0.5, 0.01)
+    test_trajectory = Polynomial([0, 0], [0, 0], [0, 0], [10, 10], [0, 0], [0, 0], 0.5, 0.01)
 
     # Create two subplots
     fig, (traj_plot, vel_plot, acc_plot, jerk_plot) = plt.subplots(4, 1)
@@ -26,9 +26,9 @@ if __name__ == "__main__":
 
     traj_plot.set_ylabel('Position')
     vel_plot.set_ylabel('Velocity')
-    vel_plot.set_xlabel('Time')
+    #vel_plot.set_xlabel('Time')
     acc_plot.set_ylabel('Acceleration')
-    acc_plot.set_xlabel('Time')
+    #acc_plot.set_xlabel('Time')
     jerk_plot.set_ylabel('Jerk')
     jerk_plot.set_xlabel('Time')
 
