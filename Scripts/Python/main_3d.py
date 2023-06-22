@@ -7,7 +7,7 @@ from colorama import Fore
 
 if __name__ == "__main__":
 
-    test_trajectory = polynomial([0, 0, 0], [0, 0, 0], [0, 0, 0], [10, 10, 10], [0, 0, 0], [0, 0, 0], 0.5, 0.01)
+    test_trajectory = polynomial([0, 0, 0], [0, 60, 0], [0, 0, 0], [10, 10, 10], [0, 0, 0], [0, 0, 0], 0.5, 0.01)
 
     # Create two subplots
     fig, (traj_plot, vel_plot, acc_plot, jerk_plot) = plt.subplots(4, 1)
@@ -35,41 +35,10 @@ if __name__ == "__main__":
     #print(f"{Fore.LIGHTCYAN_EX}i: {test_trajectory.trajectory} | type: {type(test_trajectory.trajectory)} | len: {len(test_trajectory.trajectory)}")
     #print(f"{Fore.LIGHTMAGENTA_EX}t: {test_trajectory.time_split} | type: {type(test_trajectory.time_split)} | len: {len(test_trajectory.time_split)}")
 
-    #Trajectory plot
-    aux_traj = []
-    for i in test_trajectory.trajectory:
-        #traj_plot.scatter(test_trajectory.time_split,i[1])
-        aux_traj.append(i[0])
-
-    traj_plot.scatter(test_trajectory.time_split, aux_traj)
-
-    #Velocity plot
-    aux_vel = []
-    for j in test_trajectory.velocity:
-        #vel_plot.scatter(j[0], j[1])
-        aux_vel.append(j[0])
-
-    vel_plot.scatter(test_trajectory.time_split[:], aux_vel)
-
-    #Acceleration plot
-    aux_acc = []
-    for z in test_trajectory.acceleration:
-        #acc_plot.scatter(z[0], z[1])
-        aux_acc.append(z[0])
-    
-    acc_plot.scatter(test_trajectory.time_split, aux_acc)
-
-    #Jerk plot
-    aux_jerk = []
-    
-    for k in test_trajectory.jerk:
-        #acc_plot.scatter(z[0], z[1])
-
-        aux_jerk.append(k[0])
-
-    #print((len(aux_jerk), len(test_trajectory.time_split)))
-
-    jerk_plot.scatter(test_trajectory.time_split, aux_jerk)
-    
+    ax = plt.axes(projection="3d")
+    for i in test_trajectory.jerk:
+        ax.scatter3D (i[0],i[1],i[2])
     plt.show()
+    
+
 
