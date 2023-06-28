@@ -1,5 +1,4 @@
 import enum
-from class_polynomial import polynomial
 import numpy as np
 import matplotlib.pyplot as plt
 from colorama import Fore
