@@ -36,5 +36,9 @@ if __name__ == "__main__":
             ax1.scatter3D(k[0], k[1], k[2])
         plt.show()
 
-    plot_variables(test_trajectory.jerk)
-    plot_variables(test_trajectory.velocity)
+    plot_variables(test_trajectory.trajectory)
+    #plot_variables(test_trajectory.velocity)
+    #plot_variables(test_trajectory.acceleration)
+    #plot_variables(test_trajectory.jerk)
+    
+    
