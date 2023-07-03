@@ -22,13 +22,18 @@ if __name__ == "__main__":
         print(
             f"{Fore.BLUE}||{index}|| {Fore.LIGHTBLACK_EX} Pose: {test_trajectory.trajectory[index]}|{Fore.GREEN}Vel : {test_trajectory.velocity[index]} m/s | {Fore.RED} Acc: {test_trajectory.acceleration[index]} | {Fore.CYAN} Jerk: {test_trajectory.jerk[index-1]}")
 
-    # print(f"{Fore.LIGHTCYAN_EX}i: {test_trajectory.trajectory} | type: {type(test_trajectory.trajectory)} | len: {len(test_trajectory.trajectory)}")
-    # print(f"{Fore.LIGHT-MAGENTA_EX}t: {test_trajectory.time_split} | type: {type(test_trajectory.time_split)} | len: {len(test_trajectory.time_split)}")
+
 
     ax = fig.add_subplot(111, projection="3d")
+
+    fig, (ax1, ax2) = plt.subplots(
+        2, 1, figsize=(8, 12), subplot_kw={'projection': '3d'})
+
+
+
     def plot_variables(what_to_plot):
         for k in what_to_plot:
-            ax.scatter3D(k[0], k[1], k[2])
+            ax1.scatter3D(k[0], k[1], k[2])
         plt.show()
 
     plot_variables(test_trajectory.jerk)
