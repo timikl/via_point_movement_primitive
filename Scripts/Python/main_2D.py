@@ -21,8 +21,8 @@ if __name__ == "__main__":
     for index, i in enumerate(time):
         
         #prints velocity and acceleration
-        print(f"{Fore.BLUE}||{index}|| {Fore.LIGHTBLACK_EX} Pose: {test_trajectory.trajectory[index]}|{Fore.GREEN}Vel : {test_trajectory.velocity[index]} m/s | {Fore.RED} Acc: {test_trajectory.acceleration[index]} | {Fore.CYAN} Jerk: {test_trajectory.jerk[index]}")
-        
+        #print(f"{Fore.BLUE}||{index}|| {Fore.LIGHTBLACK_EX} Pose: {test_trajectory.trajectory[index]}|{Fore.GREEN}Vel : {test_trajectory.velocity[index]} m/s | {Fore.RED} Acc: {test_trajectory.acceleration[index]} | {Fore.CYAN} Jerk: {test_trajectory.jerk[index]}")
+        continue
 
     traj_plot.set_ylabel('Position')
     vel_plot.set_ylabel('Velocity')
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     #print((len(aux_jerk), len(test_trajectory.time_split)))
 
-    jerk_plot.scatter(test_trajectory.time_split, aux_jerk)
+    jerk_plot.scatter(test_trajectory.time_split[:-1], aux_jerk)
     
     plt.show()
 

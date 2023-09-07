@@ -5,7 +5,7 @@ from colorama import Fore
 from class_polynomial import Polynomial
 
 if __name__ == "__main__":
-    test_trajectory = Polynomial([0, 0, 0], [0, 60, 0], [0, 0, 0], [10, 10, 10], [0, 0, 0], [0, 0, 0], 0.5, 0.01)
+    test_trajectory = Polynomial([0, 0, 0], [0, 10, 0], [0, 0, 0], [10, 10, 10], [0, 0, 0], [0, 0, 0], 0.5, 0.01)
 
     # Create time array
     time = np.linspace(0, test_trajectory.t, int(test_trajectory.t / test_trajectory.dt))
