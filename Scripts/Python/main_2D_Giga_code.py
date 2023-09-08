@@ -1,28 +1,16 @@
-
-
 from class_polynomial import Polynomial
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def combine (array1: np.ndarray, array2: np.ndarray) :
-    c = 0
-    l = 0
-    x = array1.copy ()
-    y = array2.copy ()
-    for i in x :
-        for j in i :
-            x[c][l] += y[c][l]
-            l += 1
-        l = 0
-        c += 1
-    return x
+def combine(array1: np.ndarray, array2: np.ndarray) -> np.ndarray:
+    """Combine two numpy arrays by element-wise addition."""
+    return array1 + array2
 
-def doplot (val) :
-    test_trajectory = Polynomial(val[0], val[1], val[2], val[3], val[4], val[5], 0.5, 0.01)
 
-    # Create two subplots
-    fig, (traj_plot, vel_plot, acc_plot, jerk_plot) = plt.subplots(4, 1)
+def doplot(axs, val, label_prefix):
+    test_trajectory = Polynomial(val[0], val[1], val[2], val[3], val[4], val[5], val[6] 0.5, 0.01)
+
     time = np.linspace(0, test_trajectory.t, int(test_trajectory.t / test_trajectory.dt))
 
     test_trajectory.whole_trajectory_calculate()
@@ -30,63 +18,44 @@ def doplot (val) :
     test_trajectory.acceleration_calculate()
     test_trajectory.jerk_calculate()
 
-    traj_plot.set_ylabel('Position')
-    vel_plot.set_ylabel('Velocity')
-    vel_plot.set_xlabel('Time')
-    acc_plot.set_ylabel('Acceleration')
-    acc_plot.set_xlabel('Time')
-    jerk_plot.set_ylabel('Jerk')
-    jerk_plot.set_xlabel('Time')
-
-    # print(f"{Fore.LIGHTCYAN_EX}i: {test_trajectory.trajectory} | type: {type(test_trajectory.trajectory)} | len: {len(test_trajectory.trajectory)}")
-    # print(f"{Fore.LIGHTMAGENTA_EX}t: {test_trajectory.time_split} | type: {type(test_trajectory.time_split)} | len: {len(test_trajectory.time_split)}")
-
     # Trajectory plot
-    aux_traj = []
-    for i in test_trajectory.trajectory:
-        # traj_plot.scatter(test_trajectory.time_split,i[1])
-        aux_traj.append(i[0])
-
-    traj_plot.scatter(test_trajectory.time_split, aux_traj)
+    aux_traj = [i[0] for i in test_trajectory.trajectory]
+    axs[0].plot(test_trajectory.time_split, aux_traj, label=f'{label_prefix} Position')
 
     # Velocity plot
-    aux_vel = []
-    for j in test_trajectory.velocity:
-        # vel_plot.scatter(j[0], j[1])
-        aux_vel.append(j[0])
-
-    vel_plot.scatter(test_trajectory.time_split[:], aux_vel)
+    aux_vel = [j[0] for j in test_trajectory.velocity]
+    axs[1].plot(test_trajectory.time_split, aux_vel, label=f'{label_prefix} Velocity')
 
     # Acceleration plot
-    aux_acc = []
-    for z in test_trajectory.acceleration:
-        # acc_plot.scatter(z[0], z[1])
-        aux_acc.append(z[0])
-
-    acc_plot.scatter(test_trajectory.time_split, aux_acc)
+    aux_acc = [z[0] for z in test_trajectory.acceleration]
+    axs[2].plot(test_trajectory.time_split, aux_acc, label=f'{label_prefix} Acceleration')
 
     # Jerk plot
-    aux_jerk = []
+    aux_jerk = [k[0] for k in test_trajectory.jerk]
+    axs[3].plot(test_trajectory.time_split[:-1], aux_jerk, label=f'{label_prefix} Jerk')
 
-    for k in test_trajectory.jerk:
-        # acc_plot.scatter(z[0], z[1])
 
-        aux_jerk.append(k[0])
+if __name__ == "__main__":
+    fig, axs = plt.subplots(4, 1, figsize=(10, 15))  # Create 4 subplots in a single column
 
-    # print((len(aux_jerk), len(test_trajectory.time_split)))
+    # x0, dx0, ddx0, x1, dx1, ddx1, t, dt
 
-    jerk_plot.scatter(test_trajectory.time_split[:-1], aux_jerk)
+    val1 = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]])
+    val2 = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [1, 0, 0], [0, 0, 0], [0, 0, 0]])
+    val3 = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [2, 0, 0], [0, 0, 0], [0, 0, 0]])
+    val4 = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [3, 0, 0], [0, 0, 0], [0, 0, 0]])
+    val5 = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [4, 0, 0], [0, 0, 0], [0, 0, 0]])
+    val6 = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [5, 0, 0], [0, 0, 0], [0, 0, 0]])
 
+    doplot(axs, val1, 'Val1')
+    doplot(axs, val2, 'Val2')
+    doplot(axs, val3, 'Val3')
+    doplot(axs, val4, 'Val4')
+    doplot(axs, val5, 'Val5')
+
+
+    for ax in axs:
+        ax.legend()  # Add legend to differentiate the plots
+
+    plt.tight_layout()
     plt.show()
-
-if __name__ == "__main__" :
-    val1 = np.array ([[0, 0, 0], [0, 0 , 0], [0, 0, 0], [20, 0, 0], [0, 0, 0], [0, 0, 0]])
-    print (val1)
-    val2 = np.array ([[20, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    print (val2)
-    val3 = combine (val1, val2)
-    print (val3)
-    doplot (val1)
-    doplot (val2)
-    doplot (val3)
-
