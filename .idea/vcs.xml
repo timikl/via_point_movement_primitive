@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/RobotblBlockset_matevz" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/robotblockset" vcs="Git" />
   </component>
 </project>

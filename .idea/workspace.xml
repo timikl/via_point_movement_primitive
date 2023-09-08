@@ -7,11 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e015fda0-d572-4685-ae9b-3cb027679f55" name="Changes" comment="commit change befor pull">
-      <change beforePath="$PROJECT_DIR$/.idea/master_thesis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/master_thesis.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/Python/class_polynomial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/Python/class_polynomial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/Python/main_3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/Python/main_3d.py" afterDir="false" />
-    </list>
+    <list default="true" id="e015fda0-d572-4685-ae9b-3cb027679f55" name="Changes" comment="commit change befor pull" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,6 +83,7 @@
       <workItem from="1687660416264" duration="3081000" />
       <workItem from="1691666258152" duration="1340000" />
       <workItem from="1691677567968" duration="795000" />
+      <workItem from="1694112864691" duration="11000" />
     </task>
     <task id="LOCAL-00001" summary="commit change befor pull">
       <option name="closed" value="true" />
