@@ -34,9 +34,9 @@ def Trj2RBF(y, dt, NN=30):
     Y = np.array(Y)
     
     # Plot if desired
-    want_plot = True
+    want_plot = False
     if want_plot:
-        plt.figure(99)
+        plt.figure("")
         plt.plot(y, 'k')
         plt.plot(Y, 'r:')
         plt.title('trajectory')

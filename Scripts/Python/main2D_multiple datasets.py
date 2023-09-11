@@ -24,7 +24,7 @@ def plot_data(axs, params, label_prefix):
 
     # Jerk plot
     aux_jerk = np.array([k[0] for k in test_trajectory.jerk])
-    axs[3].plot(test_trajectory.time_split[:-1], aux_jerk, label=f'{label_prefix} Jerk')
+    axs[3].plot(test_trajectory.time_split[2:-1], aux_jerk[2:], label=f'{label_prefix} Jerk')
 
     # Return the computed values as matrices and the time_split for plotting
     return {
@@ -71,7 +71,7 @@ if __name__ == "__main__":
         elif key == 'acceleration':
             axs[2].plot(time_split, mean_data[key], label='Mean Acceleration', linestyle='--', color='black')
         elif key == 'jerk':
-            axs[3].plot(time_split[:-1], mean_data[key], label='Mean Jerk', linestyle='--', color='black')
+            axs[3].plot(time_split[2:-1], mean_data[key][2:], label='Mean Jerk', linestyle='--', color='black') #I have to crop in the begining and the end, because of derived values -> 0
 
     for ax in axs:
         ax.legend()

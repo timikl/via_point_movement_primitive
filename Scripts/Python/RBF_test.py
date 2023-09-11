@@ -12,13 +12,19 @@ if __name__ == "__main__":
     y = y.reshape(-1, 1)
 
     # Plot y in red
-    plt.plot(y, 'r')
+    plt.plot(y, 'r', label="y")
 
     # Call the Trj2RBF function (you need to have this function defined or imported)
-    RBF, yRBF = Trj2RBF(y, dt, 20)
+    RBF, yRBF = Trj2RBF(y, dt, 60)
 
     # Plot yRBF in blue with dotted lines
-    plt.plot(yRBF, 'b:')
+    plt.plot(yRBF, 'b:', label="RBF")
+    plt.xlabel('x') 
+    plt.ylabel('t') 
+    plt.title("RBF and y functions")
+    plt.legend()
+
+    print(yRBF)
 
     # Display the plot
     plt.show()
