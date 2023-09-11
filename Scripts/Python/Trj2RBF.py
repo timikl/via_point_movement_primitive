@@ -28,13 +28,13 @@ def Trj2RBF(y, dt, NN=30):
     
     # Due to rounding, add one more sample and hence the inequality
     while S['x'] >= np.exp(-RBF['a_x'] * (1 + RBF['dt'] / RBF['tau'])):
-        S = RBF_Integrate(RBF, S)
+        S, arr = RBF_Integrate(RBF, S)
         Y.append(S['y'])
     
     Y = np.array(Y)
     
     # Plot if desired
-    want_plot = False
+    want_plot = True
     if want_plot:
         plt.figure(99)
         plt.plot(y, 'k')

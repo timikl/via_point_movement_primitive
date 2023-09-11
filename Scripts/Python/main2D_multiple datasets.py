@@ -26,12 +26,13 @@ def plot_data(axs, params, label_prefix):
     aux_jerk = np.array([k[0] for k in test_trajectory.jerk])
     axs[3].plot(test_trajectory.time_split[:-1], aux_jerk, label=f'{label_prefix} Jerk')
 
-    # Return the computed values as matrices
+    # Return the computed values as matrices and the time_split for plotting
     return {
         'trajectory': aux_traj.reshape(1, -1),
         'velocity': aux_vel.reshape(1, -1),
         'acceleration': aux_acc.reshape(1, -1),
-        'jerk': aux_jerk.reshape(1, -1)
+        'jerk': aux_jerk.reshape(1, -1),
+        'time_split': test_trajectory.time_split
     }
 
 if __name__ == "__main__":
@@ -58,6 +59,20 @@ if __name__ == "__main__":
     for key in all_data:
         all_data[key] = np.vstack(all_data[key])
 
+    # Compute the mean for each category and plot it
+    mean_data = {}
+    time_split = data['time_split']  # Use the time_split from the last iteration
+    for key in all_data:
+        mean_data[key] = np.mean(all_data[key], axis=0)
+        if key == 'trajectory':
+            axs[0].plot(time_split, mean_data[key], label='Mean Position', linestyle='--', color='black')
+        elif key == 'velocity':
+            axs[1].plot(time_split, mean_data[key], label='Mean Velocity', linestyle='--', color='black')
+        elif key == 'acceleration':
+            axs[2].plot(time_split, mean_data[key], label='Mean Acceleration', linestyle='--', color='black')
+        elif key == 'jerk':
+            axs[3].plot(time_split[:-1], mean_data[key], label='Mean Jerk', linestyle='--', color='black')
+
     for ax in axs:
         ax.legend()
         ax.grid(True)
@@ -66,4 +81,5 @@ if __name__ == "__main__":
     plt.show()
 
     # Print or process the stored data as needed
-    print(all_data)
+    #print(all_data)
+    print(mean_data)
