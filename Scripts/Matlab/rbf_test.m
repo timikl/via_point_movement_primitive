@@ -1,0 +1,12 @@
+%addpath('c:\Users\Bojan Desktop\Dropbox\Documents\Work\_nDMP\');
+dt = 0.01;
+t = 0:dt:1;
+%y = sin(t*2*pi).*cos(6*t*2*pi);
+y = t;
+plot(y,'r');
+
+[RBF,yRBF] = Trj2RBF(y',dt,9);
+
+hold on
+plot(yRBF,'b:');
+hold off

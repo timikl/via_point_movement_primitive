@@ -7,7 +7,7 @@ from colorama import Fore
 
 if __name__ == "__main__":
 
-    test_trajectory = Polynomial([0, 0, 0], [0, 0, 0], [0, 0, 0], [10, 10, 10], [0, 0, 0], [0, 0, 0], 0.5, 0.01)
+    test_trajectory = Polynomial([10, 0, 0], [10, 0, 0], [0, 0, 0], [10, 10, 10], [0, 0, 0], [0, 0, 0], 0.5, 0.01)
 
     # Create two subplots
     fig, (traj_plot, vel_plot, acc_plot, jerk_plot) = plt.subplots(4, 1)
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     for index, i in enumerate(time):
         
         #prints velocity and acceleration
-        #print(f"{Fore.BLUE}||{index}|| {Fore.LIGHTBLACK_EX} Pose: {test_trajectory.trajectory[index]}|{Fore.GREEN}Vel : {test_trajectory.velocity[index]} m/s | {Fore.RED} Acc: {test_trajectory.acceleration[index]} | {Fore.CYAN} Jerk: {test_trajectory.jerk[index]}")
+        print(f"{Fore.BLUE}||{index}|| {Fore.LIGHTBLACK_EX} Pose: {test_trajectory.trajectory[index]}|{Fore.GREEN}Vel : {test_trajectory.velocity[index]} m/s | {Fore.RED} Acc: {test_trajectory.acceleration[index]} | {Fore.CYAN} Jerk: {test_trajectory.jerk[index-1]}")
         continue
 
     traj_plot.set_ylabel('Position')
