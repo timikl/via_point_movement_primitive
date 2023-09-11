@@ -36,7 +36,7 @@ def Trj2RBF(y, dt, NN=30):
     # Plot if desired
     want_plot = False
     if want_plot:
-        plt.figure("")
+        plt.figure(99)
         plt.plot(y, 'k')
         plt.plot(Y, 'r:')
         plt.title('trajectory')
@@ -46,5 +46,4 @@ def Trj2RBF(y, dt, NN=30):
     
     return RBF, qRBF
 
-# Note: You'll need to define or import the functions `RBF_Train` and `RBF_Integrate` 
-# for this code to work, as they are called within the Trj2RBF function.
+
