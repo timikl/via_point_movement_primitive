@@ -4,6 +4,8 @@ dt = 0.01;
 tf = 2;
 t = 0:dt:tf;
 j = 0;
+
+%Plots 10 sinuses
 for a = 1:0.1:2
     j = j + 1;
     for i = 1:size(t)

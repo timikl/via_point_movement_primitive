@@ -9,8 +9,8 @@ steps = 100;
 x = zeros(100);
 y= zeros(100);
 
-a = polynomial1(x0,dx0,ddx0,x1,dx1,ddx1,t)
-x,y = evaluate(a,t,steps)
+a = polynomial1(x0,dx0,ddx0,x1,dx1,ddx1,t);
+x,y = evaluate(a,t,steps);
 
 
 plot(y)
