@@ -53,10 +53,10 @@ plot(t(1:size(p_w)), p_w,':k','LineWidth',3);
 %y_via = 2;
 x_via = 1.5;
 y_via = -1.5;
-%Za to rabim x in y, x je faza, odvisna od časa (x-os)
+%Za to rabim x in y, x je faza, odvisna od casa (x-os)
 S.x = exp(-RBF.a_x*x_via/RBF.tau);
-%sigma_y je sigma(x_via) manjši sigma, bolj sili v via točko - to je design
-%parameter in ga ni treba računati
+%sigma_y je sigma(x_via) manjši sigma, bolj sili v via tocko - to je design
+%parameter in ga ni treba racunati
 %sigma_y = sigma(x_via/dt);
 sigma_y = 0.001;
 
