@@ -15,6 +15,8 @@ if __name__ == "__main__":
     for a in np.arange(1, 2.1, 0.1):
         p.append(a * np.sin(t * 2 * np.pi / tf))
 
+    #TODO: debug p size is not vector any more, it is a matrix, what to do?
+
     p = np.array(p)
     #p = p.reshape(-1, 1)
     print(p)

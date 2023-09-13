@@ -9,7 +9,10 @@ if __name__ == "__main__":
 
     # Compute y based on the given formula
     y = np.sin(t * 2 * np.pi) * np.cos(6 * t * 2 * np.pi)
+
     y = y.reshape(-1, 1)
+    print("y: ", y)
+    print(y.shape)
 
     # Plot y in red
     plt.plot(y, 'r', label="y")
@@ -24,7 +27,7 @@ if __name__ == "__main__":
     plt.title("RBF and y functions")
     plt.legend()
 
-    print(yRBF)
+    #print(yRBF)
 
     # Display the plot
     plt.show()
