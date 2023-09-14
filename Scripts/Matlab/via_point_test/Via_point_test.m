@@ -26,7 +26,7 @@ legend("mu")
 
 % RBF
 W = [];
-M = 10;
+M = 500;
 for j = 1:size(p,1)
     [RBF,~] = Trj2RBFp(p(j,:)',dt,M);
     W(:,j) = RBF.w;
@@ -51,15 +51,15 @@ legend("RBF_mu")
 %% predikcija mu_x glede na viapoint
 %x_via = 1.4;
 %y_via = 2;
-x_via = 1.5;
-y_via = -1.9;
+x_via = 0.5;
+y_via = 3.5;
 
 % Za to rabim x in y, x je faza, odvisna od casa (x-os)
 S.x = exp(-RBF.a_x*x_via/RBF.tau);
 % sigma_y je sigma(x_via) manjsi sigma, bolj sili v via tocko; ni treba racunati
 
 % sigma_y = sigma(x_via/dt);
-sigma_y = 10.001;
+sigma_y = 0.001;
 % sigma_y = 10.001; %vecji sigma_y, manj natancno gre cez via tocko
 
 %% Equations (6) from Learning via Mov primitives article
@@ -79,6 +79,9 @@ RBF_via = RBF_mu; RBF_via.w = mu_v;
 p_via = RBFp2Trj(RBF_via);
 
 plot(t(1:size(p_via)), p_via,':m','LineWidth',2);
+%plot(t(1:size(p_via)), p_via-2.5,':r','LineWidth',2);
+
+
 legend("RBF_via")
 
 % Set the legend

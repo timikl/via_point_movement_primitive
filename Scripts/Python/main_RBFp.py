@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     plt.plot(t[:len(p_w)], p_w, ':k', linewidth=3, label="RBF_mu")
 
-    # Prediction mu_x based on viapoint
+    # Prediction mu_x based on via-point
     x_via = 1.5
     y_via = -1.9
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     # Equations (6) from Learning via Mov primitives article
     psi = np.exp(-(S['x'] - RBF_mu['c'])**2 / (2 * RBF_mu['sigma2']))
-    L = sigma_w @ psi / (sigma_y + psi.T @ sigma_w @ psi)
+    L = sigma_w @ psi / (sigma_y + psi.T @ sigma_w @ psi) # @ is a binary operator used for matrix multiplication
     mu_v = mu_w + L * (y_via - psi.T @ mu_w)
 
     # Test

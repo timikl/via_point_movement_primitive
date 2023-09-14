@@ -33,7 +33,7 @@ x = 1;
 for t=1:NT
     %% the weighted sum of the locally weighted regression models
     psi=exp(-0.5*(x-RBF.c).^2./RBF.sigma2)';
-    %xx = psi/sum(psi);
+    xx = psi/sum(psi);
     %A(t,:) = xx;
     A(t,:) = psi;
     %% update phase at last !!!!
