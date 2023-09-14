@@ -3,6 +3,9 @@ from RBFp_Integrate import RBFp_Integrate
 from RBFp_Train import RBFp_Train
 
 def Trj2RBFp(y, dt, NN=30):
+    if len(y.shape) == 1:
+        y = y.reshape(-1, 1)
+
     joints = y.shape[1]
     RBF = {
         "N": NN,
