@@ -15,37 +15,43 @@ def forward_kinematics(joint_angles):
 
     return x, y
 
-def plot_robot_arm(joint_angles):
-    # Lengths of each segment (in meters)
-    lengths = [1, 1, 1]
+def interpolate(start_angles, end_angles, num_steps):
+    # Linear interpolation between start and end angles
+    interpolated_angles = np.zeros((num_steps, len(start_angles)))
+    for i in range(num_steps):
+        interpolated_angles[i] = start_angles + (np.array(end_angles) - np.array(start_angles)) * i / (num_steps - 1)
+    return interpolated_angles
 
-    # Calculate end-effector position
-    end_effector = forward_kinematics(joint_angles)
+def plot_robot_arm(start_angles, end_angles, num_steps=50):
+    # Interpolate joint angles
+    interpolated_angles = interpolate(start_angles, end_angles, num_steps)
 
-    # Print end-effector position
-    print("End-effector position:", end_effector)
+    # Plot movement of end effector
+    end_effector_positions = np.zeros((num_steps, 2))
+    for i, angles in enumerate(interpolated_angles):
+        end_effector_positions[i] = forward_kinematics(angles)
 
-    # Calculate segment endpoints
-    segment_endpoints = [(0, 0)]  # Start at base
-    x, y = 0, 0
-    for i, angle in enumerate(joint_angles):
-        x += lengths[i] * np.cos(np.sum(joint_angles[:i+1]))
-        y += lengths[i] * np.sin(np.sum(joint_angles[:i+1]))
-        segment_endpoints.append((x, y))
-
-    # Plot robot arm
-    plt.figure()
-    plt.plot([p[0] for p in segment_endpoints], [p[1] for p in segment_endpoints], 'bo-')
-    plt.plot([0], [0], 'ro')  # Base
-    plt.plot(end_effector[0], end_effector[1], 'go')  # End-effector
-    plt.xlim([-3, 3])  # Adjust as needed
-    plt.ylim([-3, 3])  # Adjust as needed
+    # Plot robot arm movement
+    plt.figure(figsize=(8, 6))
+    plt.plot(end_effector_positions[:, 0], end_effector_positions[:, 1], 'b-', linewidth=1)  # Thin trajectory line
+    plt.plot(end_effector_positions[0, 0], end_effector_positions[0, 1], 'ro', label='Start')  # Start position
+    plt.plot(end_effector_positions[-1, 0], end_effector_positions[-1, 1], 'go', label='End')  # End position
+    for angles in [start_angles, end_angles]:
+        x = [0]
+        y = [0]
+        for i, angle in enumerate(angles):
+            x.append(x[-1] + np.cos(np.sum(angles[:i+1])))
+            y.append(y[-1] + np.sin(np.sum(angles[:i+1])))
+        plt.plot(x, y, 'k-', linewidth=2)  # Plot robot arm
+        plt.plot(x[-1], y[-1], 'ko')  # End-effector position
     plt.xlabel('X (m)')
     plt.ylabel('Y (m)')
-    plt.title('3-DOF Robot Arm')
+    plt.title('End Effector Movement')
+    plt.legend()
     plt.grid(True)
     plt.show()
 
 # Example usage
-joint_angles = [np.pi/2, 0, 0]  # Set joint angles
-plot_robot_arm(joint_angles)
+start_angles = [0, 0, 0]  # Start joint angles
+end_angles = [np.pi/2, np.pi/4, np.pi/6]  # End joint angles
+plot_robot_arm(start_angles, end_angles)

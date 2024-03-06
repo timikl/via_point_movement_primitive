@@ -35,8 +35,8 @@ def plot_robot_arm(joint_angles):
     plt.plot([p[0] for p in segment_endpoints], [p[1] for p in segment_endpoints], 'bo-')
     plt.plot([0], [0], 'ro')  # Base
     plt.plot(end_effector[0], end_effector[1], 'go')  # End-effector
-    plt.xlim([-3, 3])  # Adjust as needed
-    plt.ylim([-3, 3])  # Adjust as needed
+    plt.xlim([-3.5, 3.5])  # Adjust as needed
+    plt.ylim([-3.5, 3.5])  # Adjust as needed
     plt.xlabel('X (m)')
     plt.ylabel('Y (m)')
     plt.title('3-DOF Robot Arm')
@@ -44,5 +44,5 @@ def plot_robot_arm(joint_angles):
     plt.show()
 
 # Example usage
-joint_angles = [np.pi/4, np.pi/4, np.pi/4]  # Set joint angles
+joint_angles = [np.pi/2, 0, 0]  # Set joint angles
 plot_robot_arm(joint_angles)
