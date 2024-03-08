@@ -23,7 +23,7 @@ def plot_robot_arm(joint_angles):
     end_effector = forward_kinematics(joint_angles)
 
     # Calculate segment endpoints
-    segment_endpoints = [(0, 0)]  # Start at base
+    segment_endpoints = [(0, 0)]  # Start at base and calculate where segment stops
     x, y = 0, 0
     for i, angle in enumerate(joint_angles):
         x += lengths[i] * np.cos(np.sum(joint_angles[:i+1]))

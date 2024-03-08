@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+
+# Define the coordinates of the dots
+dots_x = [0, 0, 0, 0]
+dots_y = [0, 1, 2, 3]
+
+
+# Plot the dots
+plt.plot(dots_x, dots_y, 'bo')  # 'bo' means blue dots
+
+# Connect the dots with lines
+plt.plot(dots_x, dots_y, 'b-')  # 'b-' means blue lines
+
+# Set the x and y axis limits
+plt.xlim(-3.5, 3.5)
+plt.ylim(-3.5, 3.5)
+
+# Display the plot
+plt.show()
