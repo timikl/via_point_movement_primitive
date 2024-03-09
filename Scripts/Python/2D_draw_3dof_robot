@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 base_dot = [0, 0]
 first_end = [0, 1]
 second_end = [0, 2]
-tcp_width = 0.1
-tcp_height = 0.15
+tcp_width = 0.05
+tcp_height = 1
 tcp = [0, 3]
 tcpx_line = [tcp[0] - tcp_width, tcp[0] + tcp_width] 
 tcpy_line = [tcp[1] -tcp_height , tcp[1] ] 
