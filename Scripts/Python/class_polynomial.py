@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from colorama import Fore
 
 
-class polynomial:
+class Polynomial:
 
      # https://www.w3schools.com/python/python_classes.asp
 
