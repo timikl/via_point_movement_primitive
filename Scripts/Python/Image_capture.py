@@ -18,8 +18,10 @@ try:
 
     # List supported pixel formats
     supported_formats = camera.PixelFormat.Symbolics
+    camera.PixelFormat.SetValue("BayerBG8")
     print("Supported Pixel Formats:", supported_formats)
 
+    """
     # Set pixel format to BGR8 if supported
     if "BGR8" in supported_formats:
         camera.PixelFormat.SetValue("BGR8")
@@ -29,6 +31,7 @@ try:
         print("Pixel format set to RGB8")
     else:
         print("No color format supported, using default.")
+    """ 
 
     # Start grabbing after setting pixel format
     camera.StartGrabbing()
@@ -36,8 +39,9 @@ try:
 
     if grab_result.GrabSucceeded():
         # Convert to OpenCV format
-        img = grab_result.Array  # This should be in BGR format
-
+        
+        img = grab_result.Arary  # This should be in BGR format
+        cv2.imshow('image',img)
         # Define image path
         image_path = os.path.join(save_dir, "captured_color_image.png")
 
