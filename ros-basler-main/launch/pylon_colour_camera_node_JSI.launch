@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="respawn" default="false" />
+    <arg name="debug" default="false" />
+    <arg name="node_name" default="basler" />
+    <arg name="mtu_size" default="1500" />
+    <!-- <arg name="startup_user_set" default="CurrentSetting" /> -->
+    <arg name="startup_user_set" default="UserSet1" /> <!-- 2900x2900 -->
+    <!-- <arg name="startup_user_set" default="UserSet2" /> -->
+    <arg name="enable_status_publisher" default="true" />
+    <arg name="enable_current_params_publisher" default="true" />
+    <!-- <arg name="config_file" default="$(find pylon_camera)/config/default.yaml" /> -->
+    <arg name="config_file" default="$(find pylon_camera)/config/colour_camera_JSI.yaml" /><!-- make sure this contains the right calibration file-->
+
+    <arg unless="$(arg debug)" name="launch_prefix" value="" />
+    <arg     if="$(arg debug)" name="launch_prefix" value="gdb -ex run --args" />
+
+    <node name="$(arg node_name)" pkg="pylon_camera" type="pylon_camera_node" output="screen"
+          respawn="$(arg respawn)" launch-prefix="$(arg launch_prefix)">
+        <rosparam command="load" file="$(arg config_file)" />
+        <param name="gige/mtu_size" value="$(arg mtu_size)"/>
+        <param name="startup_user_set" value="$(arg startup_user_set)"/>
+        <param name="enable_status_publisher" value="$(arg enable_status_publisher)"/>
+        <param name="enable_current_params_publisher" value="$(arg enable_current_params_publisher)"/>
+    </node>
+   
+    <!-- Pylon ROS provides: /basler/image_raw and /basler/image_rect -->
+
+    <!-- added to provide RGB ROS node-->
+    <node ns="basler" name="rgb_converter" pkg="image_proc" type="image_proc" >
+    </node>
+
+  <!-- Debayered images -->
+  <!-- <node ns="basler" name="debayer" pkg="image_proc" type="image_proc"  args="load image_proc/debayer" /> -->
+
+    <!-- Color rectified image -->
+    <!-- <node ns="basler" pkg="nodelet" type="nodelet" name="rectify_color"
+            args="load image_proc/rectify">
+        <remap from="image_mono" to="image_color" />
+        <remap from="image_rect" to="image_rect_color" />
+    </node> -->
+
+    <!-- Debayered images -->
+  <!-- <node ns="basler" pkg="nodelet" type="nodelet" name="debayer"
+        args="load image_proc/debayer" /> -->
+
+</launch>
