@@ -18,10 +18,10 @@ try:
 
     # List supported pixel formats
     supported_formats = camera.PixelFormat.Symbolics
-    camera.PixelFormat.SetValue("BayerBG8")
+    camera.PixelFormat.SetValue("BGR8")
     print("Supported Pixel Formats:", supported_formats)
 
-    """
+    
     # Set pixel format to BGR8 if supported
     if "BGR8" in supported_formats:
         camera.PixelFormat.SetValue("BGR8")
@@ -31,7 +31,7 @@ try:
         print("Pixel format set to RGB8")
     else:
         print("No color format supported, using default.")
-    """ 
+    
 
     # Start grabbing after setting pixel format
     camera.StartGrabbing()
